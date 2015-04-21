@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- Activates various annotations to be detected in bean classes (for exam： 
+		@Resource) -->
+	<!-- not necessary when use "<context:component-scan .../>" -->
+	<context:annotation-config />
+
+	<!-- need to study <context:property-placeholder location="classpath:config.properties,/WEB-INF/spring.properties"/> -->
+
+	<!-- Configures the annotation-driven Spring MVC Controller programming 
+		model. -->
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<ref bean="MappingJackson2HttpMessageConverter" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<bean id="MappingJackson2HttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>application/json;charset=UTF-8</value>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Enable annotation style of managing transactions -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- Declare a transaction manager -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager"
+		p:sessionFactory-ref="sessionFactory" />
+
+	<!-- Scan the classpath for annotated components that will be auto-registered 
+		as Spring beans. For example @Controller and @Service. Make sure to set the 
+		correct base-package -->
+	<context:component-scan base-package="com.idea.test"></context:component-scan>
+
+	<!-- 静态资源 -->
+	<mvc:resources location="/img/" mapping="/img/**" />
+	<mvc:resources location="/js/" mapping="/js/**" />
+
+	<!-- Declare a view resolver -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/jsp/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- set the max size to upload 10MB -->
+		<property name="maxUploadSize">
+			<value>10485760</value>
+		</property>
+	</bean>
+
+</beans>
