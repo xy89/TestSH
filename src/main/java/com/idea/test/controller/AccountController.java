@@ -85,6 +85,18 @@ public class AccountController {
         return mav;
     }
     
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public @ResponseBody 
+    String register(@RequestParam(value = "account") String account, 
+            @RequestParam(value="password") String password, 
+            @RequestParam(value="confirmpassword") String confirmpassword) {
+        {
+           return "account = " + account + " password = " + password + " confirmpassword = " + confirmpassword;
+            
+        }
+
+    }
+    
 }
 
 

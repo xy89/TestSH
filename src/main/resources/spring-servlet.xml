@@ -54,6 +54,7 @@
 	<!-- 静态资源 -->
 	<mvc:resources location="/img/" mapping="/img/**" />
 	<mvc:resources location="/js/" mapping="/js/**" />
+	<mvc:resources location="/css/" mapping='/css/**' />
 
 	<!-- Declare a view resolver -->
 	<bean id="viewResolver"
