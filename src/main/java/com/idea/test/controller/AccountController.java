@@ -1,3 +1,4 @@
+
 package com.idea.test.controller;
 
 import com.idea.test.entity.Account;
@@ -15,64 +16,65 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-
 @Controller
 @RequestMapping("/account")
 public class AccountController {
     @Resource(name = "accountService")
     private AccountService accountService;
-    
+
     /*
      * http://localhost:8080/TestSH/account/get?acount=zaozigao@126.com
      */
     @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public @ResponseBody
-    Account getAccount(@RequestParam(value = "account") String account, HttpServletRequest request) {        
-        Account tmpAccount = accountService.get(account);        
-        return  tmpAccount;
+    public @ResponseBody Account getAccount(@RequestParam(value = "account") String account,
+            HttpServletRequest request) {
+        Account tmpAccount = accountService.get(account);
+        return tmpAccount;
     }
+
     /*
-     * http://localhost:8080/TestSH/account/add?account=zaozigao@126.com&password=123&category=126
+     * http://localhost:8080/TestSH/account/add?account=zaozigao@126.com&password
+     * =123&category=126
      */
-    @RequestMapping(value="/add", method = RequestMethod.GET)
-    public @ResponseBody
-    String addAccount(@RequestParam(value = "account") String account, @RequestParam(value = "password") String password, 
-            @RequestParam(value = "category", required = false, defaultValue = "default") String category){
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public @ResponseBody String addAccount(
+            @RequestParam(value = "account") String account,
+            @RequestParam(value = "password") String password,
+            @RequestParam(value = "category", required = false, defaultValue = "default") String category) {
         System.out.println("ok");
         accountService.add(account, password, category);
-        return "Add success";     
+        return "Add success";
     }
-    
-   
-    @RequestMapping(value="/update", method = RequestMethod.GET)
-    public @ResponseBody
-    String updateAccount(@RequestParam(value = "account") String account, 
+
+    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    public @ResponseBody String updateAccount(@RequestParam(value = "account") String account,
             @RequestParam(value = "oldPassword") String oldPassword,
-            @RequestParam(value = "newPassword", required = false) String newPassword, 
-            @RequestParam(value = "category", required = false) String category){
-  
+            @RequestParam(value = "newPassword", required = false) String newPassword,
+            @RequestParam(value = "category", required = false) String category) {
+
         int flag = accountService.update(account, oldPassword, newPassword, category);
-        if(flag == 0) {
-            return "Update success";     
-        }else {
+        if (flag == 0) {
+            return "Update success";
+        } else {
             return "account and password dismatch";
-        }      
+        }
     }
-    /* 
-     * http://localhost:8080/TestSH/account/delete?acount=zaozigao@126.com&password=123
+
+    /*
+     * http://localhost:8080/TestSH/account/delete?acount=zaozigao@126.com&password
+     * =123
      */
-    @RequestMapping(value="/delete", method = RequestMethod.GET)
-    public @ResponseBody
-    String deleteAccount(@RequestParam(value = "account") String account, 
-            @RequestParam(value = "password") String password){
-         int flag = accountService.delete(account, password);
-        if(flag == 0) {
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public @ResponseBody String deleteAccount(@RequestParam(value = "account") String account,
+            @RequestParam(value = "password") String password) {
+        int flag = accountService.delete(account, password);
+        if (flag == 0) {
             return "Delete success";
-        }else {
+        } else {
             return "account and password dismatch";
-        }       
-}
-    
+        }
+    }
+
     /*
      * http://localhost:8080/TestSH/account/list?group=126
      */
@@ -84,35 +86,17 @@ public class AccountController {
         mav.addObject("accountList", accountList);
         return mav;
     }
-    
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public @ResponseBody 
-    String register(@RequestParam(value = "account") String account, 
-            @RequestParam(value="password") String password, 
-            @RequestParam(value="confirmpassword") String confirmpassword) {
+    public @ResponseBody String register(@RequestParam(value = "account") String account,
+            @RequestParam(value = "password") String password,
+            @RequestParam(value = "confirmpassword") String confirmpassword) {
         {
-           return "account = " + account + " password = " + password + " confirmpassword = " + confirmpassword;
-            
+            return "account = " + account + " password = " + password + " confirmpassword = "
+                    + confirmpassword;
+
         }
 
     }
-    
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

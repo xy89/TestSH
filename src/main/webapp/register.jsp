@@ -1,8 +1,8 @@
 <html>
 <head>
-<meta charset="utf-8"/>
+<meta charset="utf-8" />
 <title>Register</title>
-<link type="text/css" rel="stylesheet" href="css/register.css"/>
+<link type="text/css" rel="stylesheet" href="css/register.css" />
 <!--  <script src="/js/jquery-1.11.2.min.js" type="text/javascript"></script>
 <script src="/js/register.js" type="text/javascript"></script>-->
 </head>
@@ -18,8 +18,8 @@
 						class="password main-password" type="password" /></li>
 					<li><span>Confirm</span> <input type="password" tabindex="3"
 						class="password password-agin" name="confirmpassword" /></li>
-					<li class="submit-btn"><span></span> <input class="submit-step"
-						type="submit" value="submit" tabindex="4"></li>
+					<li class="submit-btn"><span></span> <input
+						class="submit-step" type="submit" value="submit" tabindex="4"></li>
 				</ul>
 			</form>
 		</div>
